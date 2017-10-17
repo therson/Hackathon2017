@@ -499,29 +499,7 @@ initializeSAMNamespace () {
 	curl -H "content-type:application/json" -X POST http://$AMBARI_HOST:7777/api/v1/catalog/namespaces/$NAMESPACE_ID/mapping/bulk -d '[{"clusterId":'$CLUSTER_ID',"serviceName":"STORM","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"HDFS","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"HBASE","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"KAFKA","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"DRUID","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"HDFS","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"HIVE","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"ZOOKEEPER","namespaceId":'$NAMESPACE_ID'}]'
 }
 
-#uploadSAMExtensions() {
-	#Import UDF and UDAF
-#	cd $ROOT_PATH/sam-custom-extensions/sam-custom-udf/
-#	mvn clean package
-#	mvn assembly:assembly
 
-#	curl -F udfJarFile=@$ROOT_PATH/sam-custom-extensions/sam-custom-udf/target/sam-custom-udf-0.0.5.jar -F 'udfConfig={"name":"TIMESTAMP_LONG","displayName":"TIMESTAMP_LONG","description":"Converts a String timestamp to Timestamp Long","type":"FUNCTION","className":"hortonworks.hdf.sam.custom.udf.time.ConvertToTimestampLong"};type=application/json' -X POST http://$AMBARI_HOST:7777/api/v1/catalog/streams/udfs
-
-#	curl -F udfJarFile=@$ROOT_PATH/sam-custom-extensions/sam-custom-udf/target/sam-custom-udf-0.0.5.jar -F 'udfConfig={"name":"GET_WEEK","displayName":"GET_WEEK","description":"For a given data time string, returns week of the input date","type":"FUNCTION","className":"hortonworks.hdf.sam.custom.udf.time.GetWeek"};type=application/json' -X POST http://$AMBARI_HOST:7777/api/v1/catalog/streams/udfs
-
-	#Import Custom Processors
-#	cd $ROOT_PATH/sam-custom-extensions/sam-custom-processor
-#	mvn clean package -DskipTests
-#	mvn assembly:assembly -DskipTests
-
-#	curl -sS -X POST -i -F jarFile=@$ROOT_PATH/sam-custom-extensions/sam-custom-processor/target/sam-custom-processor-0.0.5-jar-with-dependencies.jar http://$AMBARI_HOST:7777/api/v1/catalog/streams/componentbundles/PROCESSOR/custom -F customProcessorInfo=@$ROOT_PATH/sam-custom-extensions/sam-custom-processor/src/main/resources/phoenix-enrich-truck-demo.json
-
-#	curl -sS -X POST -i -F jarFile=@$ROOT_PATH/sam-custom-extensions/sam-custom-processor/target/sam-custom-processor-0.0.5.jar http://$AMBARI_HOST:7777/api/v1/catalog/streams/componentbundles/PROCESSOR/custom -F customProcessorInfo=@$ROOT_PATH/sam-custom-extensions/sam-custom-processor/src/main/resources/enrich-weather.json
-	
-#	cp $ROOT_PATH/sam-custom-extensions/sam-custom-processor/target/sam-custom-processor-0.0.5.jar $ROOT_PATH/sam-custom-extensions/sam-custom-processor/target/sam-custom-processor-0.0.5a.jar 
-
-#	curl -sS -X POST -i -F jarFile=@$ROOT_PATH/sam-custom-extensions/sam-custom-processor/target/sam-custom-processor-0.0.5a.jar http://$AMBARI_HOST:7777/api/v1/catalog/streams/componentbundles/PROCESSOR/custom -F customProcessorInfo=@$ROOT_PATH/sam-custom-extensions/sam-custom-processor/src/main/resources/normalize-model-features.json
-}
 
 importPMMLModel () {
 	MODEL_DIR=$1
