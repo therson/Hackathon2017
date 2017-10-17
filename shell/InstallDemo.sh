@@ -197,6 +197,12 @@ getHiveMetaStoreHost () {
         echo $HIVE_METASTORE_HOST
 }
 
+getZeppelinServerHost(){
+        ZEPPSERVER_HOST=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/services/ZEPPELIN/components/ZEPPELIN_MASTER|grep "host_name"|grep -Po ': "([a-zA-Z0-9\-_!?.]+)'|grep -Po '([a-zA-Z0-9\-_!?.]+)')
+
+        echo $ZEPPSERVER_HOST
+}
+
 getStormUIHost () {
         STORMUI_HOST=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/services/STORM/components/STORM_UI_SERVER|grep "host_name"|grep -Po ': "([a-zA-Z0-9\-_!?.]+)'|grep -Po '([a-zA-Z0-9\-_!?.]+)')
 
@@ -248,6 +254,7 @@ getNifiHost () {
 captureEnvironment () {
 	export NIFI_HOST=$(getNifiHost)
 	export NAMENODE_HOST=$(getNameNodeHost)
+	export ZEPPSERVER_HOST=$(getZeppelinServerHost)
 	export HIVESERVER_HOST=$(getHiveServerHost)
 	export HIVE_METASTORE_HOST=$(getHiveMetaStoreHost)
 	export HIVE_METASTORE_URI=thrift://$HIVE_METASTORE_HOST:9083
@@ -272,6 +279,7 @@ captureEnvironment () {
 	echo "export ATLAS_HOST=$ATLAS_HOST" >> ~/.bash_profile
 	echo "export HIVE_METASTORE_HOST=$HIVE_METASTORE_HOST" >> ~/.bash_profile
 	echo "export HIVE_METASTORE_URI=$HIVE_METASTORE_URI" >> ~/.bash_profile
+	echo "export ZEPPSERVER_HOST=$ZEPPSERVER_HOST" >> ~/.bash_profile
 	echo "export COMETD_HOST=$COMETD_HOST" >> ~/.bash_profile
 
 	. ~/.bash_profile
