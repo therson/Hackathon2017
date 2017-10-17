@@ -1,0 +1,409 @@
+<PMML version="4.1" xmlns="http://www.dmg.org/PMML-4_1">
+	<Header copyright="DMG.org"/>
+    <DataDictionary>
+        <DataField name="username" optype="categorical" dataType="string">
+            <Value value="Unknown"/>
+            <Value value="centos"/>
+            <Value value="zookeeper"/>
+            <Value value="hcat"/>
+            <Value value="tez"/>
+            <Value value="hive"/>
+            <Value value="hbase"/>
+            <Value value="hdfs"/>
+            <Value value="yarn"/>
+            <Value value="mapred"/>
+            <Value value="ambari-qa"/>
+            <Value value="falcon"/>
+            <Value value="sqoop"/>
+            <Value value="oozie"/>
+            <Value value="flume"/>
+            <Value value="mahout"/>
+            <Value value="ams"/>
+            <Value value="hdpuser"/>
+            <Value value="cloudbreak"/>
+            <Value value="knox"/>
+            <Value value="registry"/>
+            <Value value="nifi"/>
+            <Value value="storm"/>
+            <Value value="kafka"/>
+            <Value value="infra-solr"/>
+            <Value value="livy"/>
+            <Value value="zeppelin"/>
+            <Value value="atlas"/>
+            <Value value="streamline"/>
+            <Value value="druid"/>
+            <Value value="spark"/>
+            <Value value="sshd[22505]: pam_unix"/>
+            <Value value="sshd[19296]: pam_unix"/>
+            <Value value="sshd[6086]: pam_unix"/>
+            <Value value="sshd[25893]: pam_unix"/>
+            <Value value="sshd[28743]: pam_unix"/>
+            <Value value="sshd[15817]: pam_unix"/>
+            <Value value="sshd[22658]: pam_unix"/>
+            <Value value="sshd[4436]: pam_unix"/>
+            <Value value="sshd[3580]: pam_unix"/>
+            <Value value="sshd[21134]: pam_unix"/>
+            <Value value="sshd[19366]: pam_unix"/>
+            <Value value="sshd[2972]: pam_unix"/>
+            <Value value="sshd[24888]: pam_unix"/>
+            <Value value="sshd[4834]: pam_unix"/>
+            <Value value="sshd[7433]: pam_unix"/>
+            <Value value="sshd[4482]: pam_unix"/>
+            <Value value="sshd[30949]: pam_unix"/>
+        </DataField>
+        <DataField name="service" optype="categorical" dataType="string">
+            <Value value="ambari-qa"/>
+            <Value value="oozie"/>
+            <Value value="zookeeper"/>
+            <Value value="hdfs"/>
+            <Value value="yarn"/>
+            <Value value="tez"/>
+            <Value value="hcat"/>
+            <Value value="mapred"/>
+            <Value value="hive"/>
+            <Value value="hbase"/>
+            <Value value="mahout"/>
+            <Value value="falcon"/>
+            <Value value="sqoop"/>
+            <Value value="flume"/>
+            <Value value="ams"/>
+            <Value value="Unknown"/>
+            <Value value="centos"/>
+            <Value value="knox"/>
+            <Value value="root"/>
+            <Value value="cloudbreak"/>
+            <Value value="storm"/>
+            <Value value="kafka"/>
+            <Value value="registry"/>
+            <Value value="nifi"/>
+            <Value value="infra-solr"/>
+            <Value value="livy"/>
+            <Value value="atlas"/>
+            <Value value="streamline"/>
+            <Value value="druid"/>
+            <Value value="zeppelin"/>
+            <Value value="spark"/>
+        </DataField>
+        <DataField name="hostname" optype="categorical" dataType="string">
+            <Value value="ssahihdp0"/>
+            <Value value="Unknown"/>
+            <Value value="ssahihdp1"/>
+            <Value value="ssahihdp3"/>
+            <Value value="secanhdf30demo-1167-1-0"/>
+            <Value value="ssahihdp2"/>
+            <Value value="secanhdf30demo-1167-2-1"/>
+            <Value value="secanhdf30demo-1167-3-2"/>
+            <Value value="secanhdf30test-1041-1-0"/>
+        </DataField>
+        <DataField name="month" optype="continuous" dataType="integer"/>
+        <DataField name="DayOfWeek" optype="continuous" dataType="integer"/>
+        <DataField name="day" optype="continuous" dataType="integer"/>
+        <DataField name="hour" optype="continuous" dataType="integer"/>
+        <DataField name="AvgFailures" optype="continuous" dataType="double"/>
+    </DataDictionary>
+    <GeneralRegressionModel modelType="generalizedLinear" functionName="regression" linkFunction="identity" distribution="normal">
+        <MiningSchema>
+            <MiningField name="AvgFailures"/>
+            <MiningField name="username"/>
+            <MiningField name="service"/>
+            <MiningField name="hostname"/>
+            <MiningField name="month"/>
+            <MiningField name="DayOfWeek"/>
+            <MiningField name="day"/>
+            <MiningField name="hour"/>
+        </MiningSchema>
+        <Output>
+            <OutputField name="prediction" optype="continuous" dataType="double" feature="response"/>
+        </Output>
+        <ParameterList>
+            <Parameter name="p0" label="(intercept)"/>
+            <Parameter name="p1"/>
+            <Parameter name="p2"/>
+            <Parameter name="p3"/>
+            <Parameter name="p4"/>
+            <Parameter name="p5"/>
+            <Parameter name="p6"/>
+            <Parameter name="p7"/>
+            <Parameter name="p8"/>
+            <Parameter name="p9"/>
+            <Parameter name="p10"/>
+            <Parameter name="p11"/>
+            <Parameter name="p12"/>
+            <Parameter name="p13"/>
+            <Parameter name="p14"/>
+            <Parameter name="p15"/>
+            <Parameter name="p16"/>
+            <Parameter name="p17"/>
+            <Parameter name="p18"/>
+            <Parameter name="p19"/>
+            <Parameter name="p20"/>
+            <Parameter name="p21"/>
+            <Parameter name="p22"/>
+            <Parameter name="p23"/>
+            <Parameter name="p24"/>
+            <Parameter name="p25"/>
+            <Parameter name="p26"/>
+            <Parameter name="p27"/>
+            <Parameter name="p28"/>
+            <Parameter name="p29"/>
+            <Parameter name="p30"/>
+            <Parameter name="p31"/>
+            <Parameter name="p32"/>
+            <Parameter name="p33"/>
+            <Parameter name="p34"/>
+            <Parameter name="p35"/>
+            <Parameter name="p36"/>
+            <Parameter name="p37"/>
+            <Parameter name="p38"/>
+            <Parameter name="p39"/>
+            <Parameter name="p40"/>
+            <Parameter name="p41"/>
+            <Parameter name="p42"/>
+            <Parameter name="p43"/>
+            <Parameter name="p44"/>
+            <Parameter name="p45"/>
+            <Parameter name="p46"/>
+            <Parameter name="p47"/>
+            <Parameter name="p48"/>
+            <Parameter name="p49"/>
+            <Parameter name="p50"/>
+            <Parameter name="p51"/>
+            <Parameter name="p52"/>
+            <Parameter name="p53"/>
+            <Parameter name="p54"/>
+            <Parameter name="p55"/>
+            <Parameter name="p56"/>
+            <Parameter name="p57"/>
+            <Parameter name="p58"/>
+            <Parameter name="p59"/>
+            <Parameter name="p60"/>
+            <Parameter name="p61"/>
+            <Parameter name="p62"/>
+            <Parameter name="p63"/>
+            <Parameter name="p64"/>
+            <Parameter name="p65"/>
+            <Parameter name="p66"/>
+            <Parameter name="p67"/>
+            <Parameter name="p68"/>
+            <Parameter name="p69"/>
+            <Parameter name="p70"/>
+            <Parameter name="p71"/>
+            <Parameter name="p72"/>
+            <Parameter name="p73"/>
+            <Parameter name="p74"/>
+            <Parameter name="p75"/>
+            <Parameter name="p76"/>
+            <Parameter name="p77"/>
+            <Parameter name="p78"/>
+            <Parameter name="p79"/>
+            <Parameter name="p80"/>
+            <Parameter name="p81"/>
+            <Parameter name="p82"/>
+            <Parameter name="p83"/>
+            <Parameter name="p84"/>
+            <Parameter name="p85"/>
+            <Parameter name="p86"/>
+            <Parameter name="p87"/>
+            <Parameter name="p88"/>
+            <Parameter name="p89"/>
+            <Parameter name="p90"/>
+        </ParameterList>
+        <FactorList>
+            <Predictor name="username"/>
+            <Predictor name="service"/>
+            <Predictor name="hostname"/>
+        </FactorList>
+        <CovariateList>
+            <Predictor name="month"/>
+            <Predictor name="DayOfWeek"/>
+            <Predictor name="day"/>
+            <Predictor name="hour"/>
+            <Predictor name="AvgFailures"/>
+        </CovariateList>
+        <PPMatrix>
+            <PPCell value="1" predictorName="month" parameterName="p1"/>
+            <PPCell value="1" predictorName="DayOfWeek" parameterName="p2"/>
+            <PPCell value="1" predictorName="day" parameterName="p3"/>
+            <PPCell value="1" predictorName="hour" parameterName="p4"/>
+            <PPCell value="Unknown" predictorName="username" parameterName="p5"/>
+            <PPCell value="centos" predictorName="username" parameterName="p6"/>
+            <PPCell value="zookeeper" predictorName="username" parameterName="p7"/>
+            <PPCell value="hcat" predictorName="username" parameterName="p8"/>
+            <PPCell value="tez" predictorName="username" parameterName="p9"/>
+            <PPCell value="hive" predictorName="username" parameterName="p10"/>
+            <PPCell value="hbase" predictorName="username" parameterName="p11"/>
+            <PPCell value="hdfs" predictorName="username" parameterName="p12"/>
+            <PPCell value="yarn" predictorName="username" parameterName="p13"/>
+            <PPCell value="mapred" predictorName="username" parameterName="p14"/>
+            <PPCell value="ambari-qa" predictorName="username" parameterName="p15"/>
+            <PPCell value="falcon" predictorName="username" parameterName="p16"/>
+            <PPCell value="sqoop" predictorName="username" parameterName="p17"/>
+            <PPCell value="oozie" predictorName="username" parameterName="p18"/>
+            <PPCell value="flume" predictorName="username" parameterName="p19"/>
+            <PPCell value="mahout" predictorName="username" parameterName="p20"/>
+            <PPCell value="ams" predictorName="username" parameterName="p21"/>
+            <PPCell value="hdpuser" predictorName="username" parameterName="p22"/>
+            <PPCell value="cloudbreak" predictorName="username" parameterName="p23"/>
+            <PPCell value="knox" predictorName="username" parameterName="p24"/>
+            <PPCell value="registry" predictorName="username" parameterName="p25"/>
+            <PPCell value="nifi" predictorName="username" parameterName="p26"/>
+            <PPCell value="storm" predictorName="username" parameterName="p27"/>
+            <PPCell value="kafka" predictorName="username" parameterName="p28"/>
+            <PPCell value="infra-solr" predictorName="username" parameterName="p29"/>
+            <PPCell value="livy" predictorName="username" parameterName="p30"/>
+            <PPCell value="zeppelin" predictorName="username" parameterName="p31"/>
+            <PPCell value="atlas" predictorName="username" parameterName="p32"/>
+            <PPCell value="streamline" predictorName="username" parameterName="p33"/>
+            <PPCell value="druid" predictorName="username" parameterName="p34"/>
+            <PPCell value="spark" predictorName="username" parameterName="p35"/>
+            <PPCell value="sshd[22505]: pam_unix" predictorName="username" parameterName="p36"/>
+            <PPCell value="sshd[19296]: pam_unix" predictorName="username" parameterName="p37"/>
+            <PPCell value="sshd[6086]: pam_unix" predictorName="username" parameterName="p38"/>
+            <PPCell value="sshd[25893]: pam_unix" predictorName="username" parameterName="p39"/>
+            <PPCell value="sshd[28743]: pam_unix" predictorName="username" parameterName="p40"/>
+            <PPCell value="sshd[15817]: pam_unix" predictorName="username" parameterName="p41"/>
+            <PPCell value="sshd[22658]: pam_unix" predictorName="username" parameterName="p42"/>
+            <PPCell value="sshd[4436]: pam_unix" predictorName="username" parameterName="p43"/>
+            <PPCell value="sshd[3580]: pam_unix" predictorName="username" parameterName="p44"/>
+            <PPCell value="sshd[21134]: pam_unix" predictorName="username" parameterName="p45"/>
+            <PPCell value="sshd[19366]: pam_unix" predictorName="username" parameterName="p46"/>
+            <PPCell value="sshd[2972]: pam_unix" predictorName="username" parameterName="p47"/>
+            <PPCell value="sshd[24888]: pam_unix" predictorName="username" parameterName="p48"/>
+            <PPCell value="sshd[4834]: pam_unix" predictorName="username" parameterName="p49"/>
+            <PPCell value="sshd[7433]: pam_unix" predictorName="username" parameterName="p50"/>
+            <PPCell value="sshd[4482]: pam_unix" predictorName="username" parameterName="p51"/>
+            <PPCell value="ambari-qa" predictorName="service" parameterName="p52"/>
+            <PPCell value="oozie" predictorName="service" parameterName="p53"/>
+            <PPCell value="zookeeper" predictorName="service" parameterName="p54"/>
+            <PPCell value="hdfs" predictorName="service" parameterName="p55"/>
+            <PPCell value="yarn" predictorName="service" parameterName="p56"/>
+            <PPCell value="tez" predictorName="service" parameterName="p57"/>
+            <PPCell value="hcat" predictorName="service" parameterName="p58"/>
+            <PPCell value="mapred" predictorName="service" parameterName="p59"/>
+            <PPCell value="hive" predictorName="service" parameterName="p60"/>
+            <PPCell value="hbase" predictorName="service" parameterName="p61"/>
+            <PPCell value="mahout" predictorName="service" parameterName="p62"/>
+            <PPCell value="falcon" predictorName="service" parameterName="p63"/>
+            <PPCell value="sqoop" predictorName="service" parameterName="p64"/>
+            <PPCell value="flume" predictorName="service" parameterName="p65"/>
+            <PPCell value="ams" predictorName="service" parameterName="p66"/>
+            <PPCell value="Unknown" predictorName="service" parameterName="p67"/>
+            <PPCell value="centos" predictorName="service" parameterName="p68"/>
+            <PPCell value="knox" predictorName="service" parameterName="p69"/>
+            <PPCell value="root" predictorName="service" parameterName="p70"/>
+            <PPCell value="cloudbreak" predictorName="service" parameterName="p71"/>
+            <PPCell value="storm" predictorName="service" parameterName="p72"/>
+            <PPCell value="kafka" predictorName="service" parameterName="p73"/>
+            <PPCell value="registry" predictorName="service" parameterName="p74"/>
+            <PPCell value="nifi" predictorName="service" parameterName="p75"/>
+            <PPCell value="infra-solr" predictorName="service" parameterName="p76"/>
+            <PPCell value="livy" predictorName="service" parameterName="p77"/>
+            <PPCell value="atlas" predictorName="service" parameterName="p78"/>
+            <PPCell value="streamline" predictorName="service" parameterName="p79"/>
+            <PPCell value="druid" predictorName="service" parameterName="p80"/>
+            <PPCell value="zeppelin" predictorName="service" parameterName="p81"/>
+            <PPCell value="ssahihdp0" predictorName="hostname" parameterName="p82"/>
+            <PPCell value="Unknown" predictorName="hostname" parameterName="p83"/>
+            <PPCell value="ssahihdp1" predictorName="hostname" parameterName="p84"/>
+            <PPCell value="ssahihdp3" predictorName="hostname" parameterName="p85"/>
+            <PPCell value="secanhdf30demo-1167-1-0" predictorName="hostname" parameterName="p86"/>
+            <PPCell value="ssahihdp2" predictorName="hostname" parameterName="p87"/>
+            <PPCell value="secanhdf30demo-1167-2-1" predictorName="hostname" parameterName="p88"/>
+            <PPCell value="secanhdf30demo-1167-3-2" predictorName="hostname" parameterName="p89"/>
+            <PPCell value="1" predictorName="AvgFailures" parameterName="p90"/>
+        </PPMatrix>
+        <ParamMatrix>
+            <PCell parameterName="p0" beta="-1.233542475024664"/>
+            <PCell parameterName="p1" beta="0.09975418705446007"/>
+            <PCell parameterName="p2" beta="0.00991582901207056"/>
+            <PCell parameterName="p3" beta="0.012176716191181337"/>
+            <PCell parameterName="p4" beta="0.002264048806249622"/>
+            <PCell parameterName="p5" beta="0.025802305317884806"/>
+            <PCell parameterName="p6" beta="0.030359491239126866"/>
+            <PCell parameterName="p7" beta="0.08751568962082935"/>
+            <PCell parameterName="p8" beta="0.08793356744040524"/>
+            <PCell parameterName="p9" beta="0.08355534107455988"/>
+            <PCell parameterName="p10" beta="0.08506725581044272"/>
+            <PCell parameterName="p11" beta="0.09347881294398742"/>
+            <PCell parameterName="p12" beta="0.07534035067831958"/>
+            <PCell parameterName="p13" beta="0.09083635414212485"/>
+            <PCell parameterName="p14" beta="0.08871474580545667"/>
+            <PCell parameterName="p15" beta="0.11672985759579563"/>
+            <PCell parameterName="p16" beta="0.09659742052990947"/>
+            <PCell parameterName="p17" beta="0.10167068646943067"/>
+            <PCell parameterName="p18" beta="0.10596504087490566"/>
+            <PCell parameterName="p19" beta="0.1001521132900049"/>
+            <PCell parameterName="p20" beta="0.09942036155379441"/>
+            <PCell parameterName="p21" beta="0.09955440242227563"/>
+            <PCell parameterName="p22" beta="0.09068364286651072"/>
+            <PCell parameterName="p23" beta="-0.04923330501330621"/>
+            <PCell parameterName="p24" beta="0.2815954709091525"/>
+            <PCell parameterName="p25" beta="-0.05267877161706388"/>
+            <PCell parameterName="p26" beta="-0.05299840463762064"/>
+            <PCell parameterName="p27" beta="-0.041392288148349464"/>
+            <PCell parameterName="p28" beta="-0.05308724505410407"/>
+            <PCell parameterName="p29" beta="-0.0486826597432824"/>
+            <PCell parameterName="p30" beta="-0.034252580360001304"/>
+            <PCell parameterName="p31" beta="-0.031862284676485726"/>
+            <PCell parameterName="p32" beta="-0.05832372288092005"/>
+            <PCell parameterName="p33" beta="-0.05803360542430246"/>
+            <PCell parameterName="p34" beta="-0.05828545485113296"/>
+            <PCell parameterName="p35" beta="-0.03472511117759759"/>
+            <PCell parameterName="p36" beta="0.04435870946611467"/>
+            <PCell parameterName="p37" beta="0.052855141722035294"/>
+            <PCell parameterName="p38" beta="-0.03545088462844123"/>
+            <PCell parameterName="p39" beta="0.025337149235349778"/>
+            <PCell parameterName="p40" beta="-0.0451840426326837"/>
+            <PCell parameterName="p41" beta="0.024529752921325414"/>
+            <PCell parameterName="p42" beta="0.03865632312473696"/>
+            <PCell parameterName="p43" beta="-0.036618579409517175"/>
+            <PCell parameterName="p44" beta="-0.057534573117839015"/>
+            <PCell parameterName="p45" beta="0.012915122544880477"/>
+            <PCell parameterName="p46" beta="0.01860909966258751"/>
+            <PCell parameterName="p47" beta="0.03529773556922396"/>
+            <PCell parameterName="p48" beta="0.05116528199216876"/>
+            <PCell parameterName="p49" beta="-0.03545088462844851"/>
+            <PCell parameterName="p50" beta="0.0443503002424659"/>
+            <PCell parameterName="p51" beta="-0.05074514961292665"/>
+            <PCell parameterName="p52" beta="-0.032506240087448915"/>
+            <PCell parameterName="p53" beta="-0.026932034312569478"/>
+            <PCell parameterName="p54" beta="-0.011519588586901322"/>
+            <PCell parameterName="p55" beta="-0.0129195898308315"/>
+            <PCell parameterName="p56" beta="-0.012069271795211904"/>
+            <PCell parameterName="p57" beta="-0.011527328726449902"/>
+            <PCell parameterName="p58" beta="-0.01154276067118457"/>
+            <PCell parameterName="p59" beta="-0.012017302895210703"/>
+            <PCell parameterName="p60" beta="-0.010731311437959246"/>
+            <PCell parameterName="p61" beta="-0.0107401769497184"/>
+            <PCell parameterName="p62" beta="-0.011762266838231958"/>
+            <PCell parameterName="p63" beta="-0.011774199936601285"/>
+            <PCell parameterName="p64" beta="-0.011773347170720422"/>
+            <PCell parameterName="p65" beta="-0.011773602427868764"/>
+            <PCell parameterName="p66" beta="-0.010898735427174329"/>
+            <PCell parameterName="p67" beta="-0.01428010175226965"/>
+            <PCell parameterName="p68" beta="-0.012065453441366475"/>
+            <PCell parameterName="p69" beta="-0.0397893430775191"/>
+            <PCell parameterName="p70" beta="-0.030208376827559415"/>
+            <PCell parameterName="p71" beta="-0.02690908835883434"/>
+            <PCell parameterName="p72" beta="-0.019884623871823704"/>
+            <PCell parameterName="p73" beta="-0.008829268463665394"/>
+            <PCell parameterName="p74" beta="-0.008748246673877483"/>
+            <PCell parameterName="p75" beta="-0.008748297880158722"/>
+            <PCell parameterName="p76" beta="-0.012771731441308012"/>
+            <PCell parameterName="p77" beta="4.6490956702654914E-4"/>
+            <PCell parameterName="p78" beta="-0.013162918030101185"/>
+            <PCell parameterName="p79" beta="-0.013162874445169056"/>
+            <PCell parameterName="p80" beta="-0.013162912281019741"/>
+            <PCell parameterName="p81" beta="-0.001949579517245002"/>
+            <PCell parameterName="p82" beta="0.05482598551296447"/>
+            <PCell parameterName="p83" beta="0.07730830321714266"/>
+            <PCell parameterName="p84" beta="0.06104462057743265"/>
+            <PCell parameterName="p85" beta="0.06785392289499297"/>
+            <PCell parameterName="p86" beta="-0.007934866949097988"/>
+            <PCell parameterName="p87" beta="0.08688311176604199"/>
+            <PCell parameterName="p88" beta="0.028767415526992076"/>
+            <PCell parameterName="p89" beta="0.028981147942049812"/>
+            <PCell parameterName="p90" beta="0.9995876556501923"/>
+        </ParamMatrix>
+    </GeneralRegressionModel>
+</PMML>
