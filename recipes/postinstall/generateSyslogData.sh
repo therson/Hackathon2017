@@ -6,4 +6,6 @@ git clone https://github.com/oascofare/Hackathon2017
 cd Hackathon2017
 chmod +x -R ./shell
 ./shell/configRsyslog.sh
-./shell/gensessions.sh  100
+nohup ./shell/gensessions.sh  1000000 &
+
+
