@@ -344,7 +344,7 @@ installDemoControl () {
     #       	echo "*********************************Task Status" $TASKSTATUS
     #           	sleep 2
      #  	done
-#}
+}
 
 deployTemplateToNifi () {
        	TEMPLATE_DIR=$1
