@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export ROOT_PATH=~
 export AMBARI_HOST=$(hostname -f)
 export CLUSTER_NAME=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters |grep cluster_name|grep -Po ': "(.+)'|grep -Po '[a-zA-Z0-9\-_!?.]+')
 
@@ -9,9 +10,6 @@ getStormUIHost () {
         echo $STORMUI_HOST
 }
 
-
-
-
 createStormView () {
 	STORMUI_HOST=$(getStormUIHost)
 
@@ -19,18 +17,13 @@ createStormView () {
 
 }
 
-
-
 initializeSAMNamespace () {
 	#Initialize New Namespace
-	export NAMESPACE_ID=$(curl -H "content-type:application/json" -X POST http://$AMBARI_HOST:7777/api/v1/catalog/namespaces -d '{"name":"dev","description":"dev","streamingEngine":"STORM"}'| grep -Po '\"id\":([0-9]+)'|grep -Po '([0-9]+)')
+	export NAMESPACE_ID=$(curl -H "content-type:application/json" -X POST http://$AMBARI_HOST:7777/api/v1/catalog/namespaces -d '{"name":"test1","description":"test1","streamingEngine":"STORM"}'| grep -Po '\"id\":([0-9]+)'|grep -Po '([0-9]+)')
 
 	#Add Services to Namespace
-	curl -H "content-type:application/json" -X POST http://$AMBARI_HOST:7777/api/v1/catalog/namespaces/$NAMESPACE_ID/mapping/bulk -d '[{"clusterId":'$CLUSTER_ID',"serviceName":"STORM","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"HDFS","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"HBASE","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"KAFKA","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"DRUID","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"HDFS","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"HIVE","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"ZOOKEEPER","namespaceId":'$NAMESPACE_ID'}]'
+	curl -H "content-type:application/json" -X POST http://$AMBARI_HOST:7777/api/v1/catalog/namespaces/$NAMESPACE_ID/mapping/bulk -d '[{"clusterId":'$CLUSTER_ID',"serviceName":"STORM","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"HDFS","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"KAFKA","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"DRUID","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"HDFS","namespaceId":'$NAMESPACE_ID'},{"clusterId":'$CLUSTER_ID',"serviceName":"ZOOKEEPER","namespaceId":'$NAMESPACE_ID'}]'
 }
-
-
-
 
 importSAMTopology () {
 	SAM_DIR=$1
@@ -39,18 +32,21 @@ importSAMTopology () {
 	sed -r -i 's;\{\{HOST1\}\};'$AMBARI_HOST';g' $SAM_DIR
 	sed -r -i 's;\{\{CLUSTERNAME\}\};'$CLUSTER_NAME';g' $SAM_DIR
  
-	export TOPOLOGY_ID=$(curl -F file=@$SAM_DIR -F 'topologyName='$TOPOLOGY_NAME -F 'namespaceId='$NAMESPACE_ID -X POST http://$AMBARI_HOST:7777/api/v1/catalog/topologies/actions/import| grep -Po '\"id\":([0-9]+)'|grep -Po '([0-9]+)')
-
-    echo $TOPOLOGY_ID
+    	export TOPOLOGY_META=$(curl -F file=@$SAM_DIR -F 'topologyName='$TOPOLOGY_NAME -F 'namespaceId='$NAMESPACE_ID -X POST http://$AMBARI_HOST:7777/api/v1/catalog/topologies/actions/import)
+    	#echo "TOPOLOGY_META=" $TOPOLOGY_META
+	export TOPOLOGY_ID=$(echo $TOPOLOGY_META|grep -Po '\"id\":([0-9]+)'|grep -Po '([0-9]+)')
+	#echo "TOPOLOGY_ID ="$TOPOLOGY_ID
+	export VERSION_ID=$(echo $TOPOLOGY_META|grep -Po '\"versionId\":([0-9]+)'|grep -Po '([0-9]+)')
+    	#echo "VERSION_ID="$VERSION_ID
 }
-
 
 deploySAMTopology () {
 	TOPOLOGY_ID=$1
-	
+	VERSION_ID=$2
+
 	#Deploy Topology
-	echo "********** curl -X POST http://$AMBARI_HOST:7777/api/v1/catalog/topologies/$TOPOLOGY_ID/versions/$TOPOLOGY_ID/actions/deploy"
-	curl -X POST http://$AMBARI_HOST:7777/api/v1/catalog/topologies/$TOPOLOGY_ID/versions/$TOPOLOGY_ID/actions/deploy
+	echo "********** curl -X POST http://$AMBARI_HOST:7777/api/v1/catalog/topologies/$TOPOLOGY_ID/versions/$VERSION_ID/actions/deploy"
+	curl -X POST http://$AMBARI_HOST:7777/api/v1/catalog/topologies/$TOPOLOGY_ID/versions/$VERSION_ID/actions/deploy
 	
 	#Poll Deployment State until deployment completes or fails
 	echo "curl -X GET http://$AMBARI_HOST:7777/api/v1/catalog/topologies/$TOPOLOGY_ID/deploymentstate"
@@ -70,21 +66,20 @@ deploySAMTopology () {
     fi
 }
 
-
 echo "********************************* Create Storm View"
 createStormView
+
 echo "********************************* Creating SAM Service Pool"
 createSAMCluster
+
 echo "********************************* Initializing SAM Namespace"
 initializeSAMNamespace
+echo "Namespaceid is:" $NAMESPACE_ID
+
 echo "********************************* Import SAM Template"
 TOPOLOGY_ID=$(importSAMTopology $ROOT_PATH/Hackathon2017/SAM/MachineLogAnalytics-v0.json MachineLog-Demo)
+echo "Topology ID is:" $TOPOLOGY_ID
+echo "Version ID is:" $VERSION_ID
+
 echo "********************************* Deploy SAM Topology"
-deploySAMTopology "$TOPOLOGY_ID"	
-
-
-
-
-
-
-
+deploySAMTopology $TOPOLOGY_ID $VERSION_ID
