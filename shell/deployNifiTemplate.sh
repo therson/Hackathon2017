@@ -10,6 +10,11 @@ getNifiHost () {
 }
 
 export NIFI_HOST=$(getNifiHost)
+export ROOTPATH='~'
+echo "export NIFI_HOST=$NIFI_HOST" >> ~/.bash_profile
+echo "export ROOTPATH=$ROOTPATH" >> ~/.bash_profile
+
+
 
 deployTemplateToNifi () {
        	TEMPLATE_DIR=$1
@@ -69,7 +74,7 @@ configureNifiTempate () {
 
 
 echo "********************************* Deploying Nifi Template"
-deployTemplateToNifi $ROOT_PATH/Hackathon2017/nifi/SyslogDemo-Hackaton.xml MachineLog-Demo
+deployTemplateToNifi $ROOT_PATH/Hackathon2017/nifi/SyslogDemo-Hackaton.xml  MachineLog-Demo
 
 
 
