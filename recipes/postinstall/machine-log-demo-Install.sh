@@ -13,7 +13,6 @@ echo "************ Installing Demo  ************************"
 git clone https://github.com/oascofare/Hackathon2017
 cd Hackathon2017
 chmod +x -R ./shell
-
 ./shell/pushSchemasToRegistry.sh
 ./shell/deploySAMTopology.sh
 ./shell/deployNifiTemplate.sh
