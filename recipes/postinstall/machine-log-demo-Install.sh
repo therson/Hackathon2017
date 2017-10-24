@@ -2,7 +2,6 @@
 echo "*********************************Install Machine log demo data *****************************"
 yum install -y wget
 yum install -y git
-
 git clone https://github.com/vakshorton/CloudBreakArtifacts
 
 echo "************ Installing HDF components ************************"
