@@ -13,4 +13,10 @@ echo "************ Installing Demo  ************************"
 git clone https://github.com/oascofare/Hackathon2017
 cd Hackathon2017
 chmod +x -R ./shell
-./shell/installSyslogDemo.sh
+
+./shell/pushSchemasToRegistry.sh
+./shell/deploySAMTopology.sh
+./shell/deployNifiTemplate.sh
+sudo ./shell/configRsyslog.sh
+sudo ./shell/gensessions-ag.sh 1000000
+
