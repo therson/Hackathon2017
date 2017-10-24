@@ -2,6 +2,7 @@
 #!/bin/bash
 
 export AMBARI_HOST=$(hostname -f)
+export ROOTPATH='~'
 export CLUSTER_NAME=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters |grep cluster_name|grep -Po ': "(.+)'|grep -Po '[a-zA-Z0-9\-_!?.]+')
 
 getZeppelinHost () {
@@ -14,12 +15,15 @@ export NIFI_HOST=$(getNifiHost)
 echo "export ZEPPELIN_MASTER_HOST=$NIFI_HOST" >> ~/.bash_profile
 
  
- #getZeppelinNotebook() {
-                ZEPP_NOTEBOOK=SysLogModel-v1.json
+getZeppelinNotebook() {
+                ZEPP_NOTEBOOK=$ROOT_PATH/Hackathon2017/zeppelin/SysLog-Model-Regression.json
                 echo $ZEPP_NOTEBOOK
-#}
+}
+
+getZeppelinHost()
+getZeppelinNotebook()
 # Login to Zeppelin
-#curl -i --data 'userName=admin&password=password1' -X POST http://ZEPPSERVER_HOST:9995/api/login
+curl -i --data 'userName=admin&password=admin' -X POST http://ZEPPSERVER_HOST:9995/api/login
 #curl -i --data 'userName=admin&password=admin' -X POST http://172.26.230.144:9995/api/login
  
 # Create a Notebook
