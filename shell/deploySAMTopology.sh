@@ -2,7 +2,13 @@
 
 export ROOT_PATH=~
 export AMBARI_HOST=$(hostname -f)
+export ZK_HOST=$AMBARI_HOST
 export CLUSTER_NAME=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters |grep cluster_name|grep -Po ': "(.+)'|grep -Po '[a-zA-Z0-9\-_!?.]+')
+
+createKafkaTopics () {
+	
+	/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --zookeeper $ZK_HOST:2181 --create --topic syslog_pam_avro_v7 --partitions 1 --replication-factor 1
+}
 
 getStormUIHost () {
         STORMUI_HOST=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/services/STORM/components/STORM_UI_SERVER|grep "host_name"|grep -Po ': "([a-zA-Z0-9\-_!?.]+)'|grep -Po '([a-zA-Z0-9\-_!?.]+)')
@@ -65,6 +71,9 @@ deploySAMTopology () {
         done
     fi
 }
+
+echo "********************************* Creating Kafka Topics"
+createKafkaTopics
 
 echo "********************************* Create Storm View"
 createStormView
