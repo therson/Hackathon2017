@@ -11,8 +11,8 @@ getNifiHost () {
 
 export NIFI_HOST=$(getNifiHost)
 export ROOT_PATH='~'
-echo "export NIFI_HOST=$NIFI_HOST" >> ~/.bash_profile
-echo "export ROOT_PATH=$ROOT_PATH" >> ~/.bash_profile
+#echo "export NIFI_HOST=$NIFI_HOST" >> ~/.bash_profile
+#echo "export ROOT_PATH=$ROOT_PATH" >> ~/.bash_profile
 
 
 
