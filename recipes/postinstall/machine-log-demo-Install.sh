@@ -16,5 +16,5 @@ chmod +x -R ./shell
 ./shell/deploySAMTopology.sh
 ./shell/deployNifiTemplate.sh
 sudo ./shell/configRsyslog.sh
-sudo ./shell/gensessions-ag.sh 1000000
+sudo ./shell/gensessions-ag.sh 1000
 
