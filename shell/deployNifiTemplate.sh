@@ -129,7 +129,7 @@ handleGroupProcessors () {
 
 echo "********************************* Deploying Nifi Template"
 #deployTemplateToNifi $ROOT_PATH/Hackathon2017/nifi/SyslogDemo-Hackaton.xml  MachineLog-Demo
-deployTemplateToNifi /home/cloudbreak/Hackathon2017/nifi/SyslogDemo-Hackaton.xml  MachineLog-Demo
+deployTemplateToNifi ./Hackathon2017/nifi/SyslogDemo-Hackaton.xml  MachineLog-Demo
 
 echo "********************************* Configuring Nifi Template"
 configureNifiTempate
