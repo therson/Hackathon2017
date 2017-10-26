@@ -152,6 +152,9 @@
           "name": "DATANODE"
         },
         {
+          "name" : "ZEPPELIN_MASTER"
+        },
+        {
           "name": "HBASE_CLIENT"
         },
         {
