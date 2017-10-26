@@ -41,6 +41,9 @@
           "name": "NAMENODE"
         },
         {
+          "name": "ZEPPELIN_MASTER"
+        },
+        {
           "name": "TEZ_CLIENT"
         },
         {
