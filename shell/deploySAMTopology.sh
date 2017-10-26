@@ -1,13 +1,31 @@
 #!/bin/bash
 
-export ROOT_PATH=~
 export AMBARI_HOST=$(hostname -f)
+
+getKafkaBroker () {
+       	KAFKA_BROKER=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/services/KAFKA/components/KAFKA_BROKER |grep "host_name"|grep -Po ': "([a-zA-Z0-9\-_!?.]+)'|grep -Po '([a-zA-Z0-9\-_!?.]+)')
+       	
+       	echo $KAFKA_BROKER
+}
+
+
+
+getNameNodeHost () {
+        NAME_NODE=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/services/HDFS/components/NAMENODE|grep "host_name"|grep -Po ': "([a-zA-Z0-9\-_!?.]+)'|grep -Po '([a-zA-Z0-9\-_!?.]+)')
+
+        echo $NAME_NODE
+}
+
+
+export ROOT_PATH=~
 export ZK_HOST=$AMBARI_HOST
 export CLUSTER_NAME=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters |grep cluster_name|grep -Po ': "(.+)'|grep -Po '[a-zA-Z0-9\-_!?.]+')
+export NAME_NODE=$(getNameNodeHost)
+export KAFKA_BROKER=$(getKafkaBroker)
 
 createKafkaTopics () {
 	
-	/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --zookeeper $ZK_HOST:2181 --create --topic syslog_pam_avro_v7 --partitions 1 --replication-factor 1
+	/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --zookeeper $ZK_HOST:2181 --create --topic machine_log_syslog_pam_avro --partitions 1 --replication-factor 1
 }
 
 getStormUIHost () {
@@ -42,10 +60,16 @@ initializeSAMNamespace () {
 importSAMTopology () {
 	SAM_DIR=$1
 	TOPOLOGY_NAME=$2
+	
 	#Import Topology
-	sed -r -i 's;\{\{HOST1\}\};'$AMBARI_HOST';g' $SAM_DIR
-	sed -r -i 's;\{\{CLUSTERNAME\}\};'$CLUSTER_NAME';g' $SAM_DIR
- 
+
+    sed -r -i 's;\{\{HOST1\}\};'$AMBARI_HOST';g' $SAM_DIR
+	  sed -r -i 's;\{\{CLUSTERNAME\}\};'$CLUSTER_NAME';g' $SAM_DIR
+    sed -i  's/[\\t]*\(\"tranquilityZKconnect":\).*$/\1\'\"$ZK_HOST:2181\"',/' $SAM_DIR
+    sed -i  's/[\\t]*\(\"fsUrl":\).*$/\1\'\"$NAME_NODE:8020\"',/' $SAM_DIR
+    sed -i  's/[\\t]*\(\"bootstrapServers":\).*$/\1\'\"$KAFKA_BROKER:6667\"',/' $SAM_DIR
+
+
     	export TOPOLOGY_META=$(curl -F file=@$SAM_DIR -F 'topologyName='$TOPOLOGY_NAME -F 'namespaceId='$NAMESPACE_ID -X POST http://$AMBARI_HOST:7777/api/v1/catalog/topologies/actions/import)
         echo "TOPOLOGY_META=" $TOPOLOGY_META
 	sleep 5
