@@ -260,6 +260,7 @@ captureEnvironment () {
 	export KAFKA_BROKER=$(getKafkaBroker)
 	export ATLAS_HOST=$(getAtlasHost)
 	export COMETD_HOST=$AMBARI_HOST
+  export REGISTRY_HOST=$(getRegistryHost)
 	env
 	echo "export NIFI_HOST=$NIFI_HOST" >> /etc/bashrc
 	echo "export NAMENODE_HOST=$NAMENODE_HOST" >> /etc/bashrc
@@ -278,6 +279,7 @@ captureEnvironment () {
 	echo "export HIVE_METASTORE_HOST=$HIVE_METASTORE_HOST" >> ~/.bash_profile
 	echo "export HIVE_METASTORE_URI=$HIVE_METASTORE_URI" >> ~/.bash_profile
 	echo "export COMETD_HOST=$COMETD_HOST" >> ~/.bash_profile
+  echo "export REGISTRY_HOST=$REGISTRY_HOST" >> ~/.bash_profile
 
 	. ~/.bash_profile
 }
